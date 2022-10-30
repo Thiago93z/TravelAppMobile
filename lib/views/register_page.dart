@@ -56,13 +56,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                           labelText: "Names",
+                          fillColor: Colors.white60,
+                          filled: true,
                           labelStyle: const TextStyle(
-                            color: Colors.white70,
+                            color: Colors.black87,
                             decorationStyle: TextDecorationStyle.dotted,
                             fontStyle: FontStyle.italic,
                             fontSize: 20,
                           ),
-                          fillColor: Colors.transparent,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50),
                           ),
@@ -73,7 +74,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),*/
                           suffixIcon: const Icon(
                             Icons.person,
-                            color: Colors.white,
+                            color: Colors.black87,
                           )),
                     ),
                     const SizedBox(
@@ -84,8 +85,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                           labelText: "lastNames",
+                          fillColor: Colors.white60,
+                          filled: true,
                           labelStyle: const TextStyle(
-                            color: Colors.white70,
+                            color: Colors.black87,
                             decorationStyle: TextDecorationStyle.dotted,
                             fontStyle: FontStyle.italic,
                             fontSize: 20,
@@ -95,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           suffixIcon: const Icon(
                             Icons.person,
-                            color: Colors.white,
+                            color: Colors.black87,
                           )),
                     ),
                     const SizedBox(
@@ -106,8 +109,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           labelText: "E-mail",
+                          fillColor: Colors.white60,
+                          filled: true,
                           labelStyle: const TextStyle(
-                            color: Colors.white70,
+                            color: Colors.black87,
                             decorationStyle: TextDecorationStyle.dotted,
                             fontStyle: FontStyle.italic,
                             fontSize: 20,
@@ -117,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           suffixIcon: const Icon(
                             Icons.email_sharp,
-                            color: Colors.white,
+                            color: Colors.black87,
                           )),
                     ),
                     const SizedBox(
@@ -128,8 +133,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                           labelText: "Phone",
+                          fillColor: Colors.white60,
+                          filled: true,
                           labelStyle: const TextStyle(
-                            color: Colors.white70,
+                            color: Colors.black87,
                             decorationStyle: TextDecorationStyle.dotted,
                             fontStyle: FontStyle.italic,
                             fontSize: 20,
@@ -139,7 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           suffixIcon: const Icon(
                             Icons.phone_android,
-                            color: Colors.white,
+                            color: Colors.black87,
                           )),
                     ),
                     const SizedBox(
@@ -148,18 +155,22 @@ class _RegisterPageState extends State<RegisterPage> {
                     TextFormField(
                       controller: address,
                       keyboardType: TextInputType.streetAddress,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           labelText: "Address",
-                          labelStyle: TextStyle(
-                            color: Colors.white70,
+                          fillColor: Colors.white60,
+                          filled: true,
+                          labelStyle: const TextStyle(
+                            color: Colors.black87,
                             decorationStyle: TextDecorationStyle.dotted,
                             fontStyle: FontStyle.italic,
                             fontSize: 20,
                           ),
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          suffixIcon: const Icon(
                             Icons.add_location_alt_outlined,
-                            color: Colors.white,
+                            color: Colors.black87,
                           )),
                     ),
                     const SizedBox(
@@ -218,8 +229,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       //keyboardType: TextInputType.streetAddress,
                       decoration: InputDecoration(
                           labelText: "Password",
+                          fillColor: Colors.white60,
+                          filled: true,
                           labelStyle: const TextStyle(
-                            color: Colors.white70,
+                            color: Colors.black87,
                             decorationStyle: TextDecorationStyle.dotted,
                             fontStyle: FontStyle.italic,
                             fontSize: 20,
@@ -229,7 +242,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           suffixIcon: const Icon(
                             Icons.vpn_key_rounded,
-                            color: Colors.white,
+                            color: Colors.black87,
                           )),
                     ),
                     const SizedBox(
@@ -241,8 +254,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       //keyboardType: TextInputType.streetAddress,
                       decoration: InputDecoration(
                           labelText: "Confirm Password",
+                          fillColor: Colors.white60,
+                          filled: true,
                           labelStyle: const TextStyle(
-                            color: Colors.white70,
+                            color: Colors.black87,
                             decorationStyle: TextDecorationStyle.dotted,
                             fontStyle: FontStyle.italic,
                             fontSize: 20,
@@ -252,7 +267,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           suffixIcon: const Icon(
                             Icons.vpn_key_off_rounded,
-                            color: Colors.white,
+                            color: Colors.black87,
                           )),
                     ),
                     const SizedBox(
