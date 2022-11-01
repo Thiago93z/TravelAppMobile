@@ -27,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
       body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/img/cocora.jpg"),
+                  image: AssetImage("assets/img/termales.jpg"),
                   fit: BoxFit.fill)),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 50),
@@ -283,7 +283,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             textStyle: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 20)), //styleFrom
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) =>
+                                      const RegisterPage())));
+                        },
                         child: const Text(
                           "Register",
                           style: TextStyle(
