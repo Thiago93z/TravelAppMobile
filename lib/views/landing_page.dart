@@ -26,22 +26,28 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black54,
-      body: Center(
-          child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        margin: const EdgeInsets.all(30),
-        //color: Colors.greenAccent,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(180),
-          border: Border.all(color: Colors.deepOrange, width: 3),
-          color: Colors.black87,
-        ),
-        child: const Image(
-          image: AssetImage("assets/img/LogoBapp.png"),
-          width: 250,
-          height: 250,
-        ), //alignment: ,
-      )),
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/img/cocora.jpg"), fit: BoxFit.fill)),
+        child: Center(
+            child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          margin: const EdgeInsets.all(30),
+          //color: Colors.greenAccent,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(180),
+            border: Border.all(color: Colors.deepOrange, width: 3),
+            color: Colors.black87,
+          ),
+          child: const Image(
+            image: AssetImage("assets/img/LogoBapp.png"),
+            width: 250,
+            height: 250,
+          ), //alignment: ,
+        )),
+      ),
     );
   }
 }
