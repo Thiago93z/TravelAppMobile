@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travel_mobile_app/views/register_page.dart';
-import 'package:travel_mobile_app/widget/on_hover_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,13 +25,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Center(
                 child: Column(
                   children: [
-                    AnimatedContainer(
-                      //here trying to add some interactive stuff
-                      duration: const Duration(milliseconds: 200),
-                      padding: EdgeInsets.only(
-                          top: (isHover) ? 10 : 10,
-                          bottom: !(isHover) ? 10 : 10),
-
+                    Container(
                       margin: const EdgeInsets.all(30),
                       //color: Colors.greenAccent,
                       decoration: BoxDecoration(
