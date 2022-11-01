@@ -84,6 +84,29 @@ class _LoginPageState extends State<LoginPage> {
                           )),
                     ),
                     const SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                            shadowColor: Colors.greenAccent,
+                            fixedSize: const Size(150, 50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            textStyle: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 20)), //styleFrom
+                        onPressed: () {},
+                        child: InkWell(
+                          onTap: () {},
+                          child: const Text(
+                            "Iniciar Sesion",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        )),
+                    const SizedBox(
                       height: 20,
                     ),
                     TextButton(
@@ -108,29 +131,6 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.greenAccent,
                           ),
                         )),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.greenAccent,
-                            shadowColor: Colors.greenAccent,
-                            fixedSize: const Size(150, 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            textStyle: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 20)), //styleFrom
-                        onPressed: () {},
-                        child: InkWell(
-                          onTap: () {},
-                          child: const Text(
-                            "Register",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ))
                   ],
                 ),
               ),
