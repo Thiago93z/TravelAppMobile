@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_mobile_app/views/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -288,10 +289,10 @@ class _RegisterPageState extends State<RegisterPage> {
                               context,
                               MaterialPageRoute(
                                   builder: ((context) =>
-                                      const RegisterPage())));
+                                      const LoginPage())));
                         },
                         child: const Text(
-                          "Register",
+                          "Registrar",
                           style: TextStyle(
                             color: Colors.white,
                           ),

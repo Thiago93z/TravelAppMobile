@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
 class Description_Park_Page extends StatefulWidget {
-  const Description_Park_Page({super.key, required this.title});
+  const Description_Park_Page({super.key});
 
-  final String title;
 
   @override
   State<Description_Park_Page> createState() => _Description_Park_PageState();

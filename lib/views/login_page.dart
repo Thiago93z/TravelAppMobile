@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_mobile_app/views/poi_page.dart';
 import 'package:travel_mobile_app/views/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -96,16 +97,20 @@ class _LoginPageState extends State<LoginPage> {
                             textStyle: const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 20)), //styleFrom
-                        onPressed: () {},
-                        child: InkWell(
-                          onTap: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) =>
+                                  const Description_Park_Page())));
+                        },
                           child: const Text(
                             "Iniciar Sesion",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                        )),
+                        ),
                     const SizedBox(
                       height: 20,
                     ),
