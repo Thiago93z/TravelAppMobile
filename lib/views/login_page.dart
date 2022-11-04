@@ -10,6 +10,43 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final email = TextEditingController();
+  final password = TextEditingController();
+
+  void confirmUser() {
+    if (email.text.isNotEmpty && password.text.isNotEmpty) {
+      if (email.text == "messi@gmail.com") {
+        if (password.text == "123456") {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const Description_Park_Page()));
+        } else {
+          showMessage("Contraseña Incorrecta");
+        }
+      } else {
+        showMessage("Usuario no registrado");
+      }
+    } else {
+      showMessage("Datos Obligatorios");
+    }
+  }
+
+  void showMessage(String message) {
+    final view = ScaffoldMessenger.of(context);
+    view.showSnackBar(SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 20),
+      ),
+      backgroundColor: const Color.fromARGB(255, 51, 204, 92),
+      /* action: SnackBarAction(
+        label: 'Aceptar',
+        onPressed: () => view.hideCurrentSnackBar(),
+      ), */
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                       ), //alignment: ,
                     ),
                     TextFormField(
+                      controller: email,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           labelText: "E-mail",
@@ -64,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     TextFormField(
+                      controller: password,
                       obscureText: true,
                       //keyboardType: TextInputType.streetAddress,
                       decoration: InputDecoration(
@@ -88,29 +127,30 @@ class _LoginPageState extends State<LoginPage> {
                       height: 10,
                     ),
                     ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.greenAccent,
-                            shadowColor: Colors.greenAccent,
-                            fixedSize: const Size(150, 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            textStyle: const TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 20)), //styleFrom
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) =>
-                                  const Description_Park_Page())));
-                        },
-                          child: const Text(
-                            "Iniciar Sesion",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.greenAccent,
+                          shadowColor: Colors.greenAccent,
+                          fixedSize: const Size(150, 50),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          textStyle: const TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 20)), //styleFrom
+                      onPressed: () {
+                        confirmUser();
+                        /* Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) =>
+                                    const Description_Park_Page()))); */
+                      },
+                      child: const Text(
+                        "Iniciar Sesion",
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -121,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                                 fontStyle: FontStyle.italic,
                                 color: Color.fromARGB(255, 54, 20, 7))),
                         onPressed: () {
+                          confirmUser();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
