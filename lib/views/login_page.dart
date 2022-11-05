@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:travel_mobile_app/views/home_page.dart';
 import 'package:travel_mobile_app/views/poi_page.dart';
 import 'package:travel_mobile_app/views/register_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,8 +14,22 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final email = TextEditingController();
   final password = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
-  void confirmUser() {
+  void confirmUser() async {
+    try {
+      final user = await auth.signInWithEmailAndPassword(
+          email: email.text, password: password.text);
+      if (user != null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
+      }
+    } on FirebaseAuthException catch (e) {
+      showMessage(e.code);
+    }
+  }
+
+  /* void confirmUser() {
     if (email.text.isNotEmpty && password.text.isNotEmpty) {
       if (email.text == "messi@gmail.com") {
         if (password.text == "123456") {
@@ -30,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       showMessage("Datos Obligatorios");
     }
-  }
+  } */
 
   void showMessage(String message) {
     final view = ScaffoldMessenger.of(context);

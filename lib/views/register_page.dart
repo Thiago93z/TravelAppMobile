@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_mobile_app/repository/user_register.dart';
 import 'package:travel_mobile_app/views/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -18,8 +19,15 @@ class _RegisterPageState extends State<RegisterPage> {
   final address = TextEditingController();
   final password = TextEditingController();
   final passwordConfirm = TextEditingController();
+  User_Register user = User_Register();
 
   Genero? _genero = Genero.male;
+
+  void saveUser() async {
+    bool result = await user.registerUser(email.text, password.text);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -285,11 +293,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 fontStyle: FontStyle.italic,
                                 fontSize: 20)), //styleFrom
                         onPressed: () {
-                          Navigator.push(
+                          saveUser();
+                          /* Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: ((context) =>
-                                      const LoginPage())));
+                                      const LoginPage()))): */
                         },
                         child: const Text(
                           "Registrar",
