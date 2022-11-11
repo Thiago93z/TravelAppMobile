@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_mobile_app/repository/user_register.dart';
+import 'package:travel_mobile_app/model/user_model.dart';
+import 'package:travel_mobile_app/repository/user_repository.dart';
 import 'package:travel_mobile_app/views/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -9,7 +10,7 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-enum Genero { female, male }
+enum Gender { female, male }
 
 class _RegisterPageState extends State<RegisterPage> {
   final names = TextEditingController();
@@ -19,18 +20,69 @@ class _RegisterPageState extends State<RegisterPage> {
   final address = TextEditingController();
   final password = TextEditingController();
   final passwordConfirm = TextEditingController();
-  User_Register user = User_Register();
+  UserRegister user = UserRegister();
+  late Message msg;
 
-  Genero? _genero = Genero.male;
+  Gender? _gender = Gender.male;
 
-  void saveUser() async {
-    bool result = await user.registerUser(email.text, password.text);
+  void saveUser(Usuario newUser) async {
+    var result = await user.registerUser(email.text, password.text);
+
+    if (result == "invalid-email") {
+      msg.showMessage("El formato de email no es correcto");
+    } else if (result == "weak-password") {
+      msg.showMessage("la Clave deberia contener un minimo 6 caracteres");
+    } else if (result == "unknown") {
+      msg.showMessage("Complete los datos");
+    } else if (result == "network-request-failed") {
+      msg.showMessage("Revise su conexion a Internet");
+    } else if (result == "email-already-in-use") {
+      msg.showMessage("El correo ya fue registrado");
+    } else {
+      newUser.id = result;
+      registerUser(newUser);
+      msg.MessageOK("Usuario creado exitosamente");
+    }
+    /* bool result = await user.registerUser(email.text, password.text);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+        context, MaterialPageRoute(builder: (context) => LoginPage())); */
+  }
+
+  void registerUser(Usuario newUser) async {
+    var id = await user.createUser(newUser);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const LoginPage()));
+  }
+
+  void getData() {
+    setState(() {
+      if (password.text == passwordConfirm.text) {
+        if (names.text.isNotEmpty &&
+            lastNames.text.isNotEmpty &&
+            email.text.isNotEmpty &&
+            address.text.isNotEmpty &&
+            phone.text.isNotEmpty &&
+            passwordConfirm.text.isNotEmpty &&
+            password.text.isNotEmpty) {
+          String gen = "female";
+          if (_gender == Gender.male) {
+            gen = "Male";
+          }
+          var newUser = Usuario("", names.text, lastNames.text, phone.text,
+              address.text, gen, email.text, password.text);
+          saveUser(newUser);
+        } else {
+          msg.showMessage("Datos incompletos");
+        }
+      } else {
+        msg.showMessage("Contrasenas no coinciden");
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    msg = Message(context);
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Container(
@@ -194,14 +246,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               style: TextStyle(
                                   color: Color.fromARGB(233, 255, 255, 255)),
                             ),
-                            leading: Radio<Genero>(
-                              value: Genero.male,
-                              groupValue: _genero,
+                            leading: Radio<Gender>(
+                              value: Gender.male,
+                              groupValue: _gender,
                               fillColor: MaterialStateColor.resolveWith(
                                   (states) => Colors.yellow),
-                              onChanged: (Genero? value) {
+                              onChanged: (Gender? value) {
                                 setState(() {
-                                  _genero = value;
+                                  _gender = value;
                                 });
                               },
                             ),
@@ -214,14 +266,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               style: TextStyle(
                                   color: Color.fromARGB(233, 255, 255, 255)),
                             ),
-                            leading: Radio<Genero>(
-                              value: Genero.female,
-                              groupValue: _genero,
+                            leading: Radio<Gender>(
+                              value: Gender.female,
+                              groupValue: _gender,
                               fillColor: MaterialStateColor.resolveWith(
                                   (states) => Colors.yellow),
-                              onChanged: (Genero? value) {
+                              onChanged: (Gender? value) {
                                 setState(() {
-                                  _genero = value;
+                                  _gender = value;
                                 });
                               },
                             ),
@@ -293,7 +345,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 fontStyle: FontStyle.italic,
                                 fontSize: 20)), //styleFrom
                         onPressed: () {
-                          saveUser();
+                          getData();
                           /* Navigator.push(
                               context,
                               MaterialPageRoute(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travel_mobile_app/views/home_page.dart';
-import 'package:travel_mobile_app/views/poi_page.dart';
 import 'package:travel_mobile_app/views/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,17 +14,32 @@ class _LoginPageState extends State<LoginPage> {
   final email = TextEditingController();
   final password = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
+  late Message msg;
 
   void confirmUser() async {
     try {
       final user = await auth.signInWithEmailAndPassword(
           email: email.text, password: password.text);
-      if (user != null) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
-      }
+      msg.showMessage("Bienvenido");
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
     } on FirebaseAuthException catch (e) {
-      showMessage(e.code);
+      //showMessage(e.code);
+      if (e.code == "invalid-email") {
+        msg.showMessage("El formato de email no es correcto");
+      }
+      if (e.code == "user-not-found") {
+        msg.showMessage("El usuario no esta resgitrado");
+      }
+      if (e.code == "wrong-password") {
+        msg.showMessage("Clave incorrecta");
+      }
+      if (e.code == "unknown") {
+        msg.showMessage("Complete los datos");
+      }
+      if (e.code == "network-request-failed") {
+        msg.showMessage("Revise su conexion a Internet");
+      }
     }
   }
 
@@ -48,23 +62,9 @@ class _LoginPageState extends State<LoginPage> {
     }
   } */
 
-  void showMessage(String message) {
-    final view = ScaffoldMessenger.of(context);
-    view.showSnackBar(SnackBar(
-      content: Text(
-        message,
-        style: const TextStyle(fontSize: 20),
-      ),
-      backgroundColor: const Color.fromARGB(255, 51, 204, 92),
-      /* action: SnackBarAction(
-        label: 'Aceptar',
-        onPressed: () => view.hideCurrentSnackBar(),
-      ), */
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
+    msg = Message(context);
     return Scaffold(
       //backgroundColor: Colors.blue,
       body: Container(
@@ -199,5 +199,40 @@ class _LoginPageState extends State<LoginPage> {
             ),
           )),
     );
+  }
+}
+
+class Message {
+  late BuildContext context;
+  Message(this.context);
+
+  void showMessage(String message) {
+    final view = ScaffoldMessenger.of(context);
+    view.showSnackBar(SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 20),
+      ),
+      backgroundColor: const Color.fromARGB(255, 51, 204, 92),
+      /* action: SnackBarAction(
+        label: 'Aceptar',
+        onPressed: () => view.hideCurrentSnackBar(),
+      ), */
+    ));
+  }
+
+  void MessageOK(String message) {
+    final view = ScaffoldMessenger.of(context);
+    view.showSnackBar(SnackBar(
+      content: Text(
+        message,
+        style: const TextStyle(fontSize: 20),
+      ),
+      backgroundColor: Colors.green,
+      /* action: SnackBarAction(
+        label: 'Aceptar',
+        onPressed: () => view.hideCurrentSnackBar(),
+      ), */
+    ));
   }
 }
