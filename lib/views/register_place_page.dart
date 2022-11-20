@@ -38,9 +38,9 @@ class _RegisterPlacePageState extends State<RegisterPlacePage> {
   void registerPlace(Place place) async {
     var respuesta = await placeNew.registerPlace(place);
     if (respuesta == "Ya tienes este lugar en tu lista") {
-      msg.MessageOK("Este lugar ya se encuentra registrado en tu lista.");
+      msg.messageOK("Este lugar ya se encuentra registrado en tu lista.");
     } else {
-      msg.MessageOK("lugar registrado exitosamente.");
+      msg.messageOK("lugar registrado exitosamente.");
     }
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const HomePage()));

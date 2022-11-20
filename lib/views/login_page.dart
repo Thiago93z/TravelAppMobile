@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_mobile_app/views/home_page.dart';
+import 'package:travel_mobile_app/views/main_places_page.dart';
 import 'package:travel_mobile_app/views/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -21,8 +23,8 @@ class _LoginPageState extends State<LoginPage> {
       final user = await auth.signInWithEmailAndPassword(
           email: email.text, password: password.text);
       msg.showMessage("Bienvenido");
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const MainPlacesPage()));
     } on FirebaseAuthException catch (e) {
       //showMessage(e.code);
       if (e.code == "invalid-email") {
@@ -94,17 +96,20 @@ class _LoginPageState extends State<LoginPage> {
                       ), //alignment: ,
                     ),
                     TextFormField(
+                      //textAlign: TextAlign.center,
                       controller: email,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           labelText: "E-mail",
                           fillColor: Colors.white60,
                           filled: true,
-                          labelStyle: const TextStyle(
-                            color: Colors.black87,
-                            decorationStyle: TextDecorationStyle.dotted,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 20,
+                          labelStyle: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                              color: Colors.black87,
+                              decorationStyle: TextDecorationStyle.dotted,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 20,
+                            ),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50),
@@ -125,11 +130,13 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: "Password",
                           fillColor: Colors.white60,
                           filled: true,
-                          labelStyle: const TextStyle(
-                            color: Colors.black87,
-                            decorationStyle: TextDecorationStyle.dotted,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 20,
+                          labelStyle: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                              color: Colors.black87,
+                              decorationStyle: TextDecorationStyle.dotted,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 20,
+                            ),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50),
@@ -144,9 +151,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
                           backgroundColor: Colors.greenAccent,
                           shadowColor: Colors.greenAccent,
-                          fixedSize: const Size(150, 50),
+                          fixedSize: const Size(100, 60),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
                           textStyle: const TextStyle(
@@ -160,10 +168,15 @@ class _LoginPageState extends State<LoginPage> {
                                 builder: ((context) =>
                                     const Description_Park_Page()))); */
                       },
-                      child: const Text(
-                        "Iniciar Sesion",
-                        style: TextStyle(
-                          color: Colors.white,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Iniciar Sesion",
+                          style: GoogleFonts.exo(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -184,13 +197,15 @@ class _LoginPageState extends State<LoginPage> {
                                   builder: ((context) =>
                                       const RegisterPage())));
                         },
-                        child: const Text(
+                        child: Text(
                           "Registrarse",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.greenAccent,
+                          style: GoogleFonts.exo(
+                            textStyle: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.greenAccent,
+                            ),
                           ),
                         )),
                   ],
@@ -221,7 +236,7 @@ class Message {
     ));
   }
 
-  void MessageOK(String message) {
+  void messageOK(String message) {
     final view = ScaffoldMessenger.of(context);
     view.showSnackBar(SnackBar(
       content: Text(

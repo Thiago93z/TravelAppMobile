@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_mobile_app/views/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -30,7 +31,11 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
+          textTheme: GoogleFonts.latoTextTheme(
+            Theme.of(context).textTheme,
+          ),
           primarySwatch: Colors.green,
+          canvasColor: Colors.greenAccent,
           backgroundColor: Colors.orange),
       color: Colors.blue,
       home: const LandingPage(),

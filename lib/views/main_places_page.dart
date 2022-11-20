@@ -1,4 +1,3 @@
-import 'package:accordion/accordion.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_mobile_app/model/place_model.dart';
@@ -40,6 +39,26 @@ class _MainPlacesPageState extends State<MainPlacesPage> {
     });
   }
 
+  Future getPlacesbyCity() async {
+    //String? uid = FirebaseAuth.instance.currentUser?.uid;
+    idPlaces.clear();
+    mainPlaces.clear();
+    QuerySnapshot placebyCity = await FirebaseFirestore.instance
+        .collection("Places")
+        .where("ciudad", isEqualTo: buscar.text)
+        .get();
+    setState(() {
+      if (placebyCity.docs.isNotEmpty) {
+        for (var plac in placebyCity.docs) {
+          var id = plac.id;
+          idPlaces.add(id);
+          mainPlaces.add(plac.data());
+          print("----------------------" + plac.data().toString());
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,38 +67,55 @@ class _MainPlacesPageState extends State<MainPlacesPage> {
       ),
       drawer: MenuPage(),
       body: Stack(children: [
-        const SizedBox(
-          height: 50,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            children: [
-              TextFormField(
+        Row(children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 50,
+                right: 0,
+              ),
+              child: TextFormField(
                 controller: buscar,
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(
-                    labelText: "Fitrar busqueda",
-                    hoverColor: Colors.green,
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(
-                      Icons.saved_search_rounded,
-                      color: Colors.orangeAccent,
-                    )),
+                  labelText: "Fitrar por ciudad",
+                  hoverColor: Colors.white,
+                  border: OutlineInputBorder(),
+                ),
               ),
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.search_rounded)),
-            ],
+            ),
           ),
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  getPlacesbyCity();
+                });
+              },
+              padding: const EdgeInsets.only(right: 50, left: 10),
+              icon: const Icon(
+                Icons.search_rounded,
+                size: 50,
+                color: Colors.green,
+              )),
+        ]),
+        const SizedBox(
+          height: 30,
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 60),
+          padding: const EdgeInsets.only(top: 90),
           child: ListView.builder(
             itemCount: mainPlaces.length,
             itemBuilder: (BuildContext context, i) {
               return ListTile(
-                title: MiCardImage(mainPlaces[i]["img"],
-                    mainPlaces[i]["nombre"] /* + '\n' + idPlaces[i] */),
+                selectedTileColor: Colors.yellow,
+                //subtitle: Text(mainPlaces[i]["ciudad"]),
+                title: MiCardImage(
+                    mainPlaces[i]["img"],
+                    mainPlaces[i]["nombre"] +
+                        '\n' +
+                        mainPlaces[i]["ciudad"] /* + '\n' + idPlaces[i] */),
+                tileColor: Colors.greenAccent,
                 onTap: () {
                   Place newPlace = Place(
                       idPlaces[i],
@@ -98,6 +134,7 @@ class _MainPlacesPageState extends State<MainPlacesPage> {
           ),
         ),
       ]),
+      bottomNavigationBar: const DownMenu(),
       /* Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

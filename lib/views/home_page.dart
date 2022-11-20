@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_mobile_app/views/main_places_page.dart';
 import 'package:travel_mobile_app/views/menu_page.dart';
 import 'package:travel_mobile_app/views/register_place_page.dart';
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   Future getPlaces() async {
     String? uid = FirebaseAuth.instance.currentUser?.uid;
+    //QuerySnapshot mascota= await FirebaseFirestore.instance.collection("Usuarios").doc(uid).collection("mascotas").where("nombre", isEqualTo: "Paquito").get()
     QuerySnapshot place = await FirebaseFirestore.instance
         .collection("Users")
         .doc(uid)
@@ -91,6 +93,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.orangeAccent,
         ),
       ),
+      bottomNavigationBar: const DownMenu(),
     );
   }
 }
@@ -120,10 +123,12 @@ class MiCardImage extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.all(15),
-              color: Colors.lightBlueAccent,
+              color: Colors.lightGreen,
               child: Text(
                 texto,
-                style: const TextStyle(fontSize: 20, color: Colors.white),
+                style: GoogleFonts.karla(
+                  textStyle: const TextStyle(fontSize: 20, color: Colors.white),
+                ),
               ),
             )
           ],

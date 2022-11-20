@@ -28,7 +28,7 @@ class Place {
         'descripcion': _descripcion,
         'departamento': _departamento,
         'img': _img,
-        'ciudad': _ciudad
+        'ciudad': _ciudad,
       };
 
   Place(this._id, this._nombre, this._descripcion, this._ciudad,

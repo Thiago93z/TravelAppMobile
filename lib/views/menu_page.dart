@@ -1,17 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:travel_mobile_app/views/favorites_places_page.dart';
 import 'package:travel_mobile_app/views/home_page.dart';
 import 'package:travel_mobile_app/views/login_page.dart';
 import 'package:travel_mobile_app/views/main_places_page.dart';
-import 'package:travel_mobile_app/views/place_view.dart';
 import 'package:travel_mobile_app/views/places.list.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MenuPage extends StatelessWidget {
-  late Places dataPlace;
+  MenuPage({super.key});
+
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
   @override
   Widget build(
     BuildContext context,
   ) {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // Name, email address, and profile photo URL
+      final name = user.displayName;
+      final email = user.email;
+      final photoUrl = user.photoURL;
+
+      // Check if user's email is verified
+      final emailVerified = user.emailVerified;
+
+      // The user's ID, unique to the Firebase project. Do NOT use this value to
+      // authenticate with your backend server, if you have one. Use
+      // User.getIdToken() instead.
+      final uid = user.uid;
+    }
     return Drawer(
       child: ListView(
         children: [
@@ -26,11 +44,10 @@ class MenuPage extends StatelessWidget {
                   size: 20,
                   color: Colors.blue,
                 ),
-                title:
-                    Text((FirebaseAuth.instance.currentUser?.email).toString(),
-                        style: const TextStyle(
-                          fontSize: 20,
-                        )),
+                title: Text("${user?.email}",
+                    style: const TextStyle(
+                      fontSize: 20,
+                    )),
                 textColor: Colors.blueAccent,
               ),
               const SizedBox(
@@ -45,7 +62,7 @@ class MenuPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                          builder: (context) => const MainPlacesPage()));
                 },
               ),
               const SizedBox(
@@ -60,7 +77,7 @@ class MenuPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainPlacesPage()));
+                          builder: (context) => const MainPlacesPage()));
                 },
               ),
               const SizedBox(
@@ -72,8 +89,10 @@ class MenuPage extends StatelessWidget {
                 leading: const Icon(Icons.star),
                 textColor: Colors.red,
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Places()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FavoritesPlacesPage()));
                 },
               ),
               const SizedBox(
@@ -103,5 +122,43 @@ class MenuPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class DownMenu extends StatelessWidget {
+  const DownMenu({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+        backgroundColor: Colors.greenAccent,
+        selectedItemColor: Colors.deepOrange,
+        unselectedItemColor: Colors.white70,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.tree, size: 30), label: "Places"),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.mountainSun, size: 30),
+              label: "Favorites"),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.monument, size: 30),
+              label: "Hoteles"),
+        ],
+        onTap: (indice) {
+          if (indice == 0) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
+          } else if (indice == 1) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MainPlacesPage()));
+          } else if (indice == 2) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const FavoritesPlacesPage()));
+          }
+        });
   }
 }

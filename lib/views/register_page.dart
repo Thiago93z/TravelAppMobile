@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_mobile_app/model/user_model.dart';
 import 'package:travel_mobile_app/repository/user_repository.dart';
 import 'package:travel_mobile_app/views/login_page.dart';
@@ -41,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       newUser.id = result;
       registerUser(newUser);
-      msg.MessageOK("Usuario creado exitosamente");
+      msg.messageOK("Usuario creado exitosamente");
     }
     /* bool result = await user.registerUser(email.text, password.text);
     Navigator.push(
@@ -352,10 +353,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                   builder: ((context) =>
                                       const LoginPage()))): */
                         },
-                        child: const Text(
+                        child: Text(
                           "Registrar",
-                          style: TextStyle(
-                            color: Colors.white,
+                          style: GoogleFonts.exo(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ))
                   ],
