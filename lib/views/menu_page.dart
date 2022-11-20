@@ -85,7 +85,8 @@ class MenuPage extends StatelessWidget {
               ),
               ListTile(
                 iconColor: Colors.red,
-                title: const Text('Favoritos', style: TextStyle(fontSize: 15)),
+                title:
+                    const Text('Mis Favoritos', style: TextStyle(fontSize: 15)),
                 leading: const Icon(Icons.star),
                 textColor: Colors.red,
                 onTap: () {
