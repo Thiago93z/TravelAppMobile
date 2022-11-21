@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_mobile_app/model/place_model.dart';
+import 'package:travel_mobile_app/model/places_local.dart';
+import 'package:travel_mobile_app/repository/boxes.dart';
 import 'package:travel_mobile_app/views/home_page.dart';
 
 import 'menu_page.dart';
@@ -17,6 +19,19 @@ class DetailPlace extends StatefulWidget {
 
 class _DetailPlaceState extends State<DetailPlace> {
   List hoteles = [];
+
+  void addFavorites() {
+    var favoritePlace = PlacesLocal()
+      ..id = widget.dataPlace.id
+      ..nombre = widget.dataPlace.nombre
+      ..ciudad = widget.dataPlace.ciudad
+      ..departamento = widget.dataPlace.departamento
+      ..descripcion = widget.dataPlace.descripcion
+      ..img = widget.dataPlace.img;
+
+    final box = Boxes.boxFavoritos();
+    box.add(favoritePlace);
+  }
 
   @override
   void initState() {
@@ -50,7 +65,9 @@ class _DetailPlaceState extends State<DetailPlace> {
         actions: [
           IconButton(
               padding: const EdgeInsets.only(right: 25),
-              onPressed: () {},
+              onPressed: () {
+                addFavorites();
+              },
               icon: const Icon(
                 FontAwesomeIcons.heart,
                 size: 30,

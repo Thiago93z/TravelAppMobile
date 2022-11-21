@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:travel_mobile_app/model/places_local.dart';
 import 'package:travel_mobile_app/views/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
-      .then((value) {
-    runApp(const MyApp());
-  });
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //.then((value) async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(PlacesLocalAdapter());
+  await Hive.openBox<PlacesLocal>("favoritos");
+  runApp(const MyApp());
+  //}
 }
 
 class MyApp extends StatelessWidget {
