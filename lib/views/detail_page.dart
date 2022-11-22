@@ -19,6 +19,17 @@ class DetailPlace extends StatefulWidget {
 
 class _DetailPlaceState extends State<DetailPlace> {
   List hoteles = [];
+  var favorite = false;
+
+  void getFavorites() {
+    final box = Boxes.boxFavoritos();
+    //box.values.forEach((element) { })
+    for (var element in box.values) {
+      if (element.id == widget.dataPlace.id) {
+        favorite = true;
+      }
+    }
+  }
 
   void addFavorites() {
     var favoritePlace = PlacesLocal()
@@ -30,13 +41,22 @@ class _DetailPlaceState extends State<DetailPlace> {
       ..img = widget.dataPlace.img;
 
     final box = Boxes.boxFavoritos();
-    box.add(favoritePlace);
+    box.delete(favoritePlace.id);
+    //box.add(favoritePlace);
+    if (favorite) {
+      box.delete(favoritePlace.id);
+    } else {
+      box.put(favoritePlace.id, favoritePlace);
+    }
+    setState(() {
+      favorite = !favorite;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    getPlaces();
+    getFavorites();
   }
 
   Future getPlaces() async {
@@ -68,8 +88,10 @@ class _DetailPlaceState extends State<DetailPlace> {
               onPressed: () {
                 addFavorites();
               },
-              icon: const Icon(
-                FontAwesomeIcons.heart,
+              icon: Icon(
+                favorite
+                    ? FontAwesomeIcons.heartCircleBolt
+                    : FontAwesomeIcons.heart,
                 size: 30,
                 color: Colors.white54,
               ))
